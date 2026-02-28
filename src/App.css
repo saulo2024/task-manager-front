@@ -1,0 +1,75 @@
+/* Centraliza tudo na tela */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #f0f2f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Estilo do Card (Login e Dashboard) */
+.container {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+h2 { color: #1a1a1a; margin-bottom: 1.5rem; }
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box; /* Garante que o padding não aumente o tamanho */
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+button:hover { background-color: #4338ca; }
+
+/* Cores padrão (Light Mode) */
+:root {
+  --bg-color: #f0f2f5;
+  --card-bg: #ffffff;
+  --text-primary: #1a1a1a;
+  --input-border: #ddd;
+  --btn-bg: #4f46e5;
+}
+
+/* Cores quando o body tiver a classe 'dark' */
+body.dark {
+  --bg-color: #121212;
+  --card-bg: #1e1e1e;
+  --text-primary: #ffffff;
+  --input-border: #333;
+  --btn-bg: #6366f1;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease; /* Suaviza a transição */
+}
+
+.container {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--input-border);
+}
