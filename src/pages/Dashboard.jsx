@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-// 1. IMPORTAÇÃO: Adicionado o 'Circle' que faltava
 import { Sun, Moon, LogOut, Trash2, CheckCircle, Circle, Plus } from "lucide-react";
 
 function Dashboard() {
@@ -11,7 +10,7 @@ function Dashboard() {
   const [isDark, setIsDark] = useState(false);
   const navigate = useNavigate();
 
-  // --- ZONA DE LÓGICA (Cérebro do componente) ---
+  // --- LÓGICA DE DADOS ---
   
   const fetchTasks = async () => {
     try {
@@ -67,8 +66,9 @@ function Dashboard() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    navigate('/');
   };
 
   // --- ZONA DE DADOS FILTRADOS ---
@@ -81,19 +81,18 @@ function Dashboard() {
     return true;
   });
 
-  // --- ZONA VISUAL (O que aparece na tela) ---
+  // --- ZONA VISUAL ÚNICA ---
   return (
     <div className="container">
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
         <h1>Minhas Tarefas 📋</h1>
         
-        {/* BOTÕES DE AÇÃO: Modo Escuro e Sair agora no lugar certo */}
         <div style={{ display: "flex", gap: "10px" }}>
-          <button onClick={toggleDarkMode} style={{ background: "transparent", border: "none", cursor: "pointer", color: "var(--text-primary)" }}>
+          <button onClick={toggleDarkMode} style={{ background: "transparent", border: "none", cursor: "pointer", color: "inherit" }}>
             {isDark ? <Sun size={22} /> : <Moon size={22} />}
           </button>
           
-          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "5px", padding: "5px 10px" }}>
+          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "5px", padding: "5px 10px", cursor: "pointer" }}>
             <LogOut size={18} /> Sair
           </button>
         </div>

@@ -6,7 +6,7 @@ const PrivateRoute = ({ children }) => {
   
   // Se não tiver token, manda de volta para o Login
   if (!token) {
-    return <Navigate to="/" />;
+    return <Navigate to="/" replace />;
   }
 
   // Se tiver token, deixa entrar no Dashboard

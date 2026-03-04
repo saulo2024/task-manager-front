@@ -8,8 +8,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        
+        <Route path="/dashboard" element={<Login />} />
+
         {/* Use o nome exato que está no seu arquivo: PrivateRoute */}
         <Route 
           path="/dashboard" 
