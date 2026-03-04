@@ -28,7 +28,7 @@ function Login() {
 
   return (
     <div className="container">
-      <h2>Login - Pro Task Manager</h2>
+      <h2>Task Manager</h2>
       <form onSubmit={handleLogin}>
         <input 
           type="email" 
