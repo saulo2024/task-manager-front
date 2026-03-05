@@ -124,4 +124,35 @@ body {
   color: white;
   border-color: #6366f1;
 }
+
+/* --- INÍCIO: ESTILOS DA BUSCA --- */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: var(--bg-secondary);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  gap: 10px;
+  transition: border-color 0.3s ease;
+}
+
+.search-container:focus-within {
+  border-color: #6366f1;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: var(--text-primary);
+  font-size: 14px;
+}
+
+.search-icon {
+  color: #888;
+}
+
 /* FIM */
