@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
-import { Sun, Moon, LogOut, Trash2, CheckCircle, Circle, Plus } from "lucide-react";
+import { Sun, Moon, LogOut, Trash2, CheckCircle, Circle, Plus, ClipboardList } from "lucide-react";
 
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
-  const [filter, setFilter] = useState("todas");
+  const [filter, setFilter] = useState("all"); // Mudamos para inglês: all
   const [isDark, setIsDark] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  // --- LÓGICA DE DADOS ---
-  
   const fetchTasks = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -20,7 +19,7 @@ function Dashboard() {
       });
       setTasks(response.data.data);
     } catch (error) {
-      console.error("Erro ao carregar tarefas", error);
+      console.error("Error loading tasks", error);
     }
   };
 
@@ -35,7 +34,7 @@ function Dashboard() {
       });
       setTitle("");
       fetchTasks();
-    } catch (error) { alert("Erro ao criar tarefa"); }
+    } catch (error) { alert("Error creating task"); }
   };
 
   const handleToggleStatus = async (id, currentStatus) => {
@@ -46,18 +45,18 @@ function Dashboard() {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTasks();
-    } catch (error) { alert("Erro ao atualizar status"); }
+    } catch (error) { alert("Error updating status"); }
   };
 
   const handleDelete = async (id) => {
-    if (!window.confirm("Excluir tarefa?")) return;
+    if (!window.confirm("Delete this task?")) return;
     try {
       const token = localStorage.getItem("token");
       await api.delete(`/tasks/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchTasks();
-    } catch (error) { alert("Erro ao deletar"); }
+    } catch (error) { alert("Error deleting"); }
   };
 
   const toggleDarkMode = () => {
@@ -71,70 +70,77 @@ function Dashboard() {
     navigate('/');
   };
 
-  // --- ZONA DE DADOS FILTRADOS ---
-  const totalTasks = tasks.length;
-  const completedTasks = tasks.filter((t) => t.status === "concluido").length;
-
-  const filteredTasks = tasks.filter((task) => {
-    if (filter === "pendente") return task.status === "pendente";
-    if (filter === "concluido") return task.status === "concluido";
-    return true;
+  const filteredTasks = tasks.filter(task => {
+    const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
+    let matchesStatus = true;
+    if (filter === "pending") matchesStatus = task.status === "pendente";
+    if (filter === "completed") matchesStatus = task.status === "concluido";
+    return matchesSearch && matchesStatus;
   });
 
-  // --- ZONA VISUAL ÚNICA ---
   return (
     <div className="container">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "20px" }}>
-        <h1>Minhas Tarefas 📋</h1>
-        
-        <div style={{ display: "flex", gap: "10px" }}>
-          <button onClick={toggleDarkMode} style={{ background: "transparent", border: "none", cursor: "pointer", color: "inherit" }}>
+      <header className="dashboard-header">
+        <h1>My Tasks 📋</h1>
+        <div className="header-actions">
+          <button onClick={toggleDarkMode} className="icon-btn">
             {isDark ? <Sun size={22} /> : <Moon size={22} />}
           </button>
-          
-          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: "5px", padding: "5px 10px", cursor: "pointer" }}>
-            <LogOut size={18} /> Sair
+          <button onClick={handleLogout} className="logout-btn">
+            <LogOut size={18} /> Sign Out
           </button>
         </div>
-      </div>
+      </header>
 
-      <form onSubmit={handleAddTask} style={{ marginBottom: "20px", display: "flex", gap: "10px" }}>
+      <form onSubmit={handleAddTask} className="task-form">
         <input
           type="text"
-          placeholder="Nova tarefa..."
+          placeholder="Add a new task..."
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
-          style={{ padding: "8px", flex: 1 }}
         />
-        <button type="submit" style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+        <button type="submit" className="add-btn">
           <Plus size={18} /> Add
         </button>
       </form>
 
-      <div style={{ marginBottom: "20px", fontSize: "14px" }}>
-        <p>Total: <strong>{totalTasks}</strong> | Concluídas: <strong>{completedTasks}</strong></p>
-        <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-          <button onClick={() => setFilter("todas")} style={{ opacity: filter === "todas" ? 1 : 0.5 }}>Todas</button>
-          <button onClick={() => setFilter("pendente")} style={{ opacity: filter === "pendente" ? 1 : 0.5 }}>Pendentes</button>
-          <button onClick={() => setFilter("concluido")} style={{ opacity: filter === "concluido" ? 1 : 0.5 }}>Concluídas</button>
-        </div>
+      <div className="search-container" style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px', padding: '10px', background: 'var(--bg-secondary)', borderRadius: '8px' }}>
+        <Search size={18} color="#888" />
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          style={{ border: 'none', background: 'transparent', outline: 'none', width: '100%', color: 'inherit' }}
+        />
       </div>
 
-      <ul style={{ listStyle: "none", padding: 0 }}>
-        {filteredTasks.map((task) => (
-          <li key={task._id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "15px", borderBottom: "1px solid #eee", paddingBottom: "10px" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div onClick={() => handleToggleStatus(task._id, task.status)} style={{ cursor: "pointer" }}>
-                {task.status === "concluido" ? <CheckCircle color="#4CAF50" /> : <Circle color="#ccc" />}
+      <div className="filter-bar">
+        <button onClick={() => setFilter("all")} className={filter === "all" ? "active" : ""}>All</button>
+        <button onClick={() => setFilter("pending")} className={filter === "pending" ? "active" : ""}>Pending</button>
+        <button onClick={() => setFilter("completed")} className={filter === "completed" ? "active" : ""}>Completed</button>
+      </div>
+
+      <ul className="task-list">
+        {filteredTasks.length > 0 ? (
+          filteredTasks.map((task) => (
+            <li key={task._id} className={`task-item ${task.status === "concluido" ? "done" : ""}`}>
+              <div className="task-content">
+                <div onClick={() => handleToggleStatus(task._id, task.status)} className="status-icon">
+                  {task.status === "concluido" ? <CheckCircle color="#4CAF50" /> : <Circle color="#ccc" />}
+                </div>
+                <span className="task-title">{task.title}</span>
               </div>
-              <span style={{ textDecoration: task.status === "concluido" ? "line-through" : "none", color: task.status === "concluido" ? "#888" : "inherit" }}>
-                {task.title}
-              </span>
-            </div>
-            <Trash2 size={20} color="#ff4d4d" onClick={() => handleDelete(task._id)} style={{ cursor: "pointer" }} />
-          </li>
-        ))}
+              <Trash2 size={20} className="delete-icon" onClick={() => handleDelete(task._id)} />
+            </li>
+          ))
+        ) : (
+          <div className="empty-state">
+            <ClipboardList size={48} />
+            <p>No tasks found. Start by adding one!</p>
+          </div>
+        )}
       </ul>
     </div>
   );

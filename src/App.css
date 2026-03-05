@@ -73,3 +73,55 @@ body {
   color: var(--text-primary);
   border: 1px solid var(--input-border);
 }
+
+/* INICIO */
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease; /* Transição suave */
+}
+
+.task-item:hover {
+  transform: translateX(5px); /* Efeito de deslize ao passar o mouse */
+  background: #f9f9f9;
+}
+
+.task-item.done {
+  opacity: 0.5; /* Tarefa concluída fica mais suave */
+}
+
+.task-item.done .task-title {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #aaa;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-bar button {
+  padding: 5px 15px;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  background: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-bar button.active {
+  background: #6366f1;
+  color: white;
+  border-color: #6366f1;
+}
+/* FIM */
