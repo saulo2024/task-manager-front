@@ -41,7 +41,14 @@ function Dashboard() {
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      // ... lógica de post
+      const token = localStorage.getItem("token");
+      await api.post(
+        "/tasks",
+        { title },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        },
+      );
       toast.success("Task added successfully! 🚀"); // Novo feedback
       setTitle("");
       fetchTasks();
@@ -63,14 +70,17 @@ function Dashboard() {
       );
       fetchTasks();
     } catch (error) {
-      alert("Error updating status");
+      toast.error("Error updating status");
     }
   };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this task?")) return;
     try {
-      // ... lógica de delete
+      const token = localStorage.getItem("token");
+      await api.delete(`/tasks/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success("Task deleted."); // Feedback de remoção
       fetchTasks();
     } catch (error) {
