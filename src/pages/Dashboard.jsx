@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import {
   Sun,
   Moon,
@@ -40,18 +41,12 @@ function Dashboard() {
   const handleAddTask = async (e) => {
     e.preventDefault();
     try {
-      const token = localStorage.getItem("token");
-      await api.post(
-        "/tasks",
-        { title },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
+      // ... lógica de post
+      toast.success("Task added successfully! 🚀"); // Novo feedback
       setTitle("");
       fetchTasks();
     } catch (error) {
-      alert("Error creating task");
+      toast.error("Failed to create task."); // Novo erro
     }
   };
 
@@ -75,16 +70,13 @@ function Dashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this task?")) return;
     try {
-      const token = localStorage.getItem("token");
-      await api.delete(`/tasks/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      // ... lógica de delete
+      toast.success("Task deleted."); // Feedback de remoção
       fetchTasks();
     } catch (error) {
-      alert("Error deleting");
+      toast.error("Error deleting task.");
     }
   };
-
   const toggleDarkMode = () => {
     setIsDark(!isDark);
     document.body.classList.toggle("dark");
