@@ -1,16 +1,25 @@
-# React + Vite
+# 📋 Task Manager Pro - Full Stack Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a professional task management system built to demonstrate advanced proficiency in React, Node.js integration, and Cloud Deployment.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
+**Frontend:** [Your Vercel Link Here]
+**Backend API:** [Your Koyeb Link Here]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Key Features
+- **Secure Authentication**: Implemented JWT (JSON Web Tokens) with private routing and auto-logout on session expiration.
+- **Dynamic CRUD**: Real-time task creation, updates, and deletion integrated with a MongoDB database.
+- **Advanced UX/UI**: Responsive design with Dark Mode, smooth CSS transitions (Origamid patterns), and professional toast notifications.
+- **Smart Filtering**: Real-time search and status filtering (Pending/Completed).
 
-## React Compiler
+## 🧪 Tech Stack
+- **Frontend**: React (Vite), Lucide Icons, Axios, React Hot Toast.
+- **Backend**: Fastify (Node.js), Prisma ORM.
+- **Database**: MongoDB Atlas.
+- **DevOps**: Vercel (Frontend CI/CD) and Koyeb (Backend Hosting).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧠 What I Learned
+During this project, I faced and solved critical production challenges:
+1. **Environment Variable Management**: Configuring build-time variables in Vercel to sync with the Koyeb API.
+2. **Global Auth State**: Handling protected routes to ensure data privacy.
+3. **API Interceptors**: Implementing Axios interceptors to handle 401 errors globally.
