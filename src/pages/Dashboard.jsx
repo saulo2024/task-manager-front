@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./dashboard.css";
+import "./Dashboard.css";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
