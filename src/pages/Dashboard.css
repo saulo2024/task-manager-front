@@ -1,55 +1,102 @@
-/* Animação suave de entrada (Estilo Origamid) */
-@keyframes animeLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+/* Variáveis para facilitar o Dark Mode */
+:root {
+  --primary: #6366f1;
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --text: #1e293b;
 }
 
+.dark {
+  --bg: #0f172a;
+  --card: #1e293b;
+  --text: #f8fafc;
+}
+
+.container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: var(--bg);
+  min-height: 100vh;
+  color: var(--text);
+  transition: all 0.3s ease;
+}
+
+/* Header mais elegante */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+/* Botões Modernos */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.add-btn, .logout-btn {
+  background: var(--primary);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.add-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+/* Input "Gourmet" */
+.task-form input, .search-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: var(--card);
+  color: var(--text);
+}
+
+/* O item da tarefa que você já corrigiu */
 .task-item {
   animation: animeLeft 0.5s forwards;
-  background: #ffffff;
-  padding: 1.2rem;
-  margin-bottom: 1rem;
+  background: var(--card);
+  padding: 1rem;
+  margin-bottom: 0.8rem;
   border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease; /* O segredo da suavidade */
   border-left: 4px solid transparent;
 }
 
-/* O efeito que faz o recrutador brilhar o olho */
 .task-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-  border-left: 4px solid #6366f1; /* Cor de destaque */
-  cursor: pointer;
+  transform: translateY(-3px);
+  border-left-color: var(--primary);
 }
 
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+@keyframes animeLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #6366f1; /* Cor Indigo que usamos no hover */
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+.task-title {
+  color: var(--text); /* Usa a variável que muda entre preto e branco */
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* Estilo para quando a tarefa estiver concluída */
+.task-item.done .task-title {
+  text-decoration: line-through;
+  opacity: 0.6;
 }
-
-
