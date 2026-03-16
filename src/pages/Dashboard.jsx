@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import "./dashboard.css";
 import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -40,11 +41,11 @@ function Dashboard() {
         await api.post("/tasks", { title });
         toast.success("Task added successfully!");
         setTitle("");
-        fetchTasks();
+        
       } catch (error) {
         toast.error("Error adding task.");
       }
-  };
+  }
 
   const handleToggleStatus = async (id, currentStatus) => {
     try {
