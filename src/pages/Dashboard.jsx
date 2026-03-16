@@ -22,17 +22,13 @@ function Dashboard() {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const fetchTasks = async () => {
-    try {
-      const token = localStorage.getItem("token");
-      const response = await api.get("/tasks", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setTasks(response.data.data);
-    } catch (error) {
-      console.error("Error loading tasks", error);
+  api.interceptors.request.use((config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
     }
-  };
+    return config;
+  });
 
   useEffect(() => {
     fetchTasks();
@@ -40,21 +36,14 @@ function Dashboard() {
 
   const handleAddTask = async (e) => {
     e.preventDefault();
-    try {
-      const token = localStorage.getItem("token");
-      await api.post(
-        "/tasks",
-        { title },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        },
-      );
-      toast.success("Task added successfully! 🚀"); // Novo feedback
-      setTitle("");
-      fetchTasks();
-    } catch (error) {
-      toast.error("Failed to create task."); // Novo erro
-    }
+      try {
+        await api.post("/tasks", { title });
+        toast.success("Task added successfully!");
+        setTitle("");
+        fetchTasks();
+      } catch (error) {
+        toast.error("Error adding task.");
+      }
   };
 
   const handleToggleStatus = async (id, currentStatus) => {
