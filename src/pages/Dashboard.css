@@ -10,7 +10,7 @@
   }
 }
 
-.task-card {
+.task-item {
   animation: animeLeft 0.5s forwards;
   background: #ffffff;
   padding: 1.2rem;
@@ -25,7 +25,7 @@
 }
 
 /* O efeito que faz o recrutador brilhar o olho */
-.task-card:hover {
+.task-item:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
   border-left: 4px solid #6366f1; /* Cor de destaque */
