@@ -1,0 +1,37 @@
+/* Animação suave de entrada (Estilo Origamid) */
+@keyframes animeLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.task-card {
+  animation: animeLeft 0.5s forwards;
+  background: #ffffff;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease; /* O segredo da suavidade */
+  border-left: 4px solid transparent;
+}
+
+/* O efeito que faz o recrutador brilhar o olho */
+.task-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #6366f1; /* Cor de destaque */
+  cursor: pointer;
+}
+
+
+
+
