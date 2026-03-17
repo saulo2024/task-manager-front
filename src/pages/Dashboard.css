@@ -100,3 +100,16 @@ button {
   text-decoration: line-through;
   opacity: 0.6;
 }
+
+/* Garante que todos os títulos h1 usem a cor dinâmica do tema */
+h1 {
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+/* Se o título do Login tiver uma classe específica, use ela: */
+.login-container h1 {
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
